@@ -1,0 +1,23 @@
+# Dependencias y build
+node_modules/
+dist/
+.astro/
+
+# Resultados de Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# Configuración local y borradores personales (no se publican)
+.claude/settings.local.json
+.claude/skills/
+.claude/product-marketing.md
+CONTENIDO.md
+
+# Espacio de trabajo de los agentes
+.superpowers/
+
+# Sistema
+.DS_Store
+Thumbs.db
+.env

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fmv · QA Engineer</title>
+<meta name="description" content="QA Engineer especializado en sistemas críticos de banca. Construyo agentes de IA aplicados a la calidad de software.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050705;
+    --surface: #0c110c;
+    --border: #1a241a;
+    --text: #e8ece8;
+    --muted: #8a948a;
+    --green: #00ff41;
+    --green-dim: #00c834;
+    --green-glow: rgba(0, 255, 65, .18);
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav { position: fixed; inset: 0 0 auto 0; z-index: 10; background: rgba(5,7,5,.8); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+  nav.scrolled { border-color: var(--border); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: var(--mono); font-weight: 600; font-size: 20px; color: var(--green); }
+  .logo span { color: var(--muted); }
+  nav ul { display: flex; gap: 28px; list-style: none; font-size: 14px; }
+  nav ul a { color: var(--muted); transition: color .2s; }
+  nav ul a:hover, nav ul a.active { color: var(--green); }
+
+  /* Hero */
+  #home { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+  #rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .14; pointer-events: none; }
+  #home::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 30%, var(--bg) 85%); pointer-events: none; }
+  .hero { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; }
+  .prompt { font-family: var(--mono); font-size: 14px; color: var(--green); margin-bottom: 16px; }
+  .cursor { display: inline-block; width: 9px; height: 1.1em; background: var(--green); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.15; font-weight: 700; letter-spacing: -.02em; margin-bottom: 20px; }
+  h1 em { font-style: normal; color: var(--green); }
+  .lead { color: var(--muted); font-size: 17px; max-width: 520px; margin-bottom: 32px; }
+  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { font-size: 14px; font-weight: 500; padding: 11px 22px; border-radius: 8px; border: 1px solid var(--green); transition: all .2s; }
+  .btn.primary { background: var(--green); color: #000; }
+  .btn.primary:hover { background: var(--green-dim); border-color: var(--green-dim); }
+  .btn.ghost { color: var(--green); }
+  .btn.ghost:hover { background: var(--green-glow); }
+  .photo { width: 240px; height: 240px; border-radius: 50%; overflow: hidden; border: 2px solid var(--green); box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--border), 0 0 48px var(--green-glow); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; transform: scale(1.14); display: block; }
+
+  /* Sections */
+  section { padding: 96px 0; }
+  h2 { font-size: 28px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 8px; }
+  .label { font-family: var(--mono); font-size: 13px; color: var(--green); margin-bottom: 8px; display: block; }
+  .intro { color: var(--muted); max-width: 640px; margin-bottom: 48px; }
+
+  /* Timeline */
+  .timeline { position: relative; display: grid; gap: 24px; }
+  .timeline::before { content: ""; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 1px; background: linear-gradient(var(--green), var(--border)); }
+  .item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; }
+  .year { position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; font-weight: 600; background: var(--bg); color: var(--green); border: 1px solid var(--green); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; transition: border-color .2s; }
+  .card:hover { border-color: #2a3a2a; }
+  .card h3 { font-size: 16px; font-weight: 600; }
+  .meta { font-size: 13px; color: var(--green); margin: 2px 0 10px; }
+  .card p { font-size: 14px; color: var(--muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tags span { font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(0,255,65,.35); color: var(--green-dim); }
+
+  /* Projects */
+  .terminal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .terminal .bar { display: flex; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .terminal .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+  .terminal pre { font-family: var(--mono); font-size: 14px; padding: 24px; color: var(--muted); white-space: pre-wrap; line-height: 1.9; }
+  .terminal pre b { color: var(--green); font-weight: 400; }
+  .terminal .foot { padding: 0 24px 24px; }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .contact a { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: all .2s; }
+  .contact a:hover { border-color: var(--green); box-shadow: 0 0 24px var(--green-glow); }
+  .contact small { display: block; font-family: var(--mono); font-size: 12px; color: var(--green); margin-bottom: 4px; }
+  .contact strong { font-size: 14px; font-weight: 500; word-break: break-all; }
+
+  footer { border-top: 1px solid var(--border); padding: 28px 0; font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: center; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 16px; }
+    nav ul { gap: 16px; font-size: 13px; }
+    .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 96px; text-align: left; }
+    .photo { width: 140px; height: 140px; order: -1; }
+    .contact { grid-template-columns: 1fr; }
+    section { padding: 72px 0; }
+    .item { grid-template-columns: 44px 1fr; gap: 14px; }
+    .year { width: 44px; height: 44px; font-size: 11px; }
+    .timeline::before { left: 21px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cursor { animation: none; }
+    #rain { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#home" class="logo">fmv<span>_</span></a>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="home">
+  <canvas id="rain"></canvas>
+  <div class="wrap hero">
+    <div>
+      <p class="prompt">&gt; qa_engineer --ai-agents <span class="cursor"></span></p>
+      <h1>Calidad de software,<br>potenciada con <em>agentes de IA</em>.</h1>
+      <p class="lead">QA Engineer con más de 4 años en sistemas críticos de banca: pagos, microservicios y mainframe. Hoy diseño agentes de IA que automatizan el diseño de pruebas, la preparación de datos y el análisis de defectos.</p>
+      <div class="btns">
+        <a href="#sobre-mi" class="btn primary">Conocé mi experiencia</a>
+        <a href="#contacto" class="btn ghost">Contacto</a>
+      </div>
+    </div>
+    <div class="photo"><img src="foto.png" alt="Foto de perfil de fmv"></div>
+  </div>
+</header>
+
+<section id="sobre-mi">
+  <div class="wrap">
+    <span class="label">// sobre mí</span>
+    <h2>Experiencia</h2>
+    <p class="intro">Trabajé de punta a punta en sistemas donde un error cuesta caro: desde el frontend de un CRM bancario hasta procesos batch en mainframe. Ese contexto es el que hoy aplico para construir herramientas de IA que resuelvan problemas reales de QA.</p>
+
+    <div class="timeline">
+      <div class="item">
+        <div class="year">2026</div>
+        <div class="card">
+          <h3>QA Analyst</h3>
+          <p class="meta">CDA Informática · jun. 2026 – actualidad</p>
+          <p>QA funcional y técnico sobre mainframe: pruebas de procesos batch y reportes críticos, validación de datos en DB2 y trazabilidad de punta a punta contra cada requerimiento.</p>
+          <div class="tags"><span>z/OS</span><span>COBOL</span><span>JCL</span><span>DB2</span><span>Control-M</span><span>Jira/Xray</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="year">2024</div>
+        <div class="card">
+          <h3>QA Engineer</h3>
+          <p class="meta">Banco Galicia · ene. 2024 – jun. 2026</p>
+          <p>Testing E2E de sistemas core de pagos sobre microservicios: validación de APIs y contratos, pruebas de performance y virtualización de servicios para entornos desacoplados.</p>
+          <div class="tags"><span>Postman</span><span>SoapUI</span><span>JMeter</span><span>Parasoft Virtualize</span><span>SQL Server</span></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="year">2022</div>
+        <div class="card">
+          <h3>QA Analyst</h3>
+          <p class="meta">Banco Galicia · sept. 2022 – dic. 2023</p>
+          <p>Testing funcional E2E del CRM interno, desde la interacción del agente hasta el impacto en backend. UAT con referentes de negocio y gestión de defectos priorizados por impacto.</p>
+          <div class="tags"><span>HP ALM</span><span>SQL Server</span><span>Scrum</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <span class="label">// proyectos</span>
+    <h2>Proyectos</h2>
+    <p class="intro">Agentes de IA aplicados a la calidad de software.</p>
+    <div class="terminal">
+      <div class="bar"><i></i><i></i><i></i></div>
+<pre><b>$</b> ls ./proyectos
+<b>&gt;</b> compilando agentes de IA para QA...
+<b>&gt;</b> próximamente <span class="cursor"></span></pre>
+      <div class="foot"><a href="#" class="btn ghost">Ver mi GitHub →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <span class="label">// contacto</span>
+    <h2>Hablemos</h2>
+    <p class="intro">¿Tenés un proyecto o una propuesta? Escribime.</p>
+    <div class="contact">
+      <a href="mailto:tu-email@ejemplo.com"><small>email</small><strong>tu-email@ejemplo.com</strong></a>
+      <a href="#" target="_blank" rel="noopener"><small>linkedin</small><strong>/in/tu-usuario</strong></a>
+      <a href="#" target="_blank" rel="noopener"><small>github</small><strong>@tu-usuario</strong></a>
+    </div>
+  </div>
+</section>
+
+<footer>fmv · 2026</footer>
+
+<script>
+  // Nav: borde al hacer scroll y link activo según la sección visible
+  const nav = document.getElementById('nav');
+  const links = [...document.querySelectorAll('nav ul a')];
+  const sections = [...document.querySelectorAll('#home, section')];
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', scrollY > 10);
+    const atBottom = innerHeight + scrollY >= document.body.scrollHeight - 2;
+    const current = atBottom ? sections.at(-1)
+      : sections.filter(s => s.offsetTop <= scrollY + innerHeight * .4).at(-1);
+    links.forEach(a => a.classList.toggle('active', a.hash === '#' + current.id));
+  };
+  addEventListener('scroll', onScroll); onScroll();
+
+  // Lluvia de caracteres estilo Matrix (sutil, solo en el hero)
+  const c = document.getElementById('rain');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ctx = c.getContext('2d');
+    const chars = 'アイウエオカキクケコサシスセソ01QAテスト<>{}=';
+    const size = 16;
+    let drops = [];
+    const resize = () => {
+      c.width = c.offsetWidth; c.height = c.offsetHeight;
+      drops = Array(Math.ceil(c.width / size)).fill(0).map(() => Math.random() * -50);
+    };
+    resize(); addEventListener('resize', resize);
+    setInterval(() => {
+      ctx.fillStyle = 'rgba(5,7,5,.12)';
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = size + 'px "JetBrains Mono", monospace';
+      drops.forEach((y, i) => {
+        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * size, y * size);
+        drops[i] = y * size > c.height && Math.random() > .975 ? 0 : y + 1;
+      });
+    }, 60);
+  }
+</script>
+</body>
+</html>
