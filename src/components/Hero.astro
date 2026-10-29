@@ -1,5 +1,6 @@
 ---
 import MatrixRain from './MatrixRain.astro';
+import { contacto } from '../data/contacto';
 ---
 
 <header id="home" class="relative flex min-h-screen items-center overflow-hidden">
@@ -12,15 +13,15 @@ import MatrixRain from './MatrixRain.astro';
     <div>
       <p class="mb-4 font-mono text-sm text-matrix">&gt; qa_engineer --ai-agents <span class="cursor"></span></p>
       <h1 class="mb-5 text-[clamp(32px,5vw,48px)] leading-[1.15] font-bold tracking-[-.02em]">
-        Calidad de software,<br />potenciada con <em class="text-matrix not-italic">agentes de IA</em>.
+        Hago QA en <em class="text-matrix not-italic">sistemas bancarios</em>, donde un error le cuesta plata a alguien.
       </h1>
       <p class="mb-8 max-w-[520px] text-[17px] text-muted">
-        QA Engineer con más de 4 años en sistemas críticos de banca: pagos, microservicios y mainframe. Hoy diseño
-        agentes de IA que automatizan el diseño de pruebas, la preparación de datos y el análisis de defectos.
+        Hace 4 años pruebo pagos, microservicios y mainframe, y participé en la integración de HSBC con Galicia. Ahora
+        estoy construyendo agentes de IA que hagan parte de ese trabajo.
       </p>
       <div class="flex flex-wrap gap-3">
-        <a href="#sobre-mi" class="btn btn-primary">Conocé mi experiencia</a>
-        <a href="#contacto" class="btn btn-ghost">Contacto</a>
+        <a href={`mailto:${contacto.email}`} class="btn btn-primary">Coordinemos una entrevista</a>
+        <a href="#sobre-mi" class="btn btn-ghost">Ver mi recorrido</a>
       </div>
     </div>
     <div

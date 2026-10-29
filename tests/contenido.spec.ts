@@ -26,6 +26,25 @@ test('hay un solo h1 y cada sección tiene su título h2', async ({ page }) => {
   }
 });
 
+test('el hero presenta el perfil y lleva a la entrevista', async ({ page }) => {
+  await expect(page.locator('h1')).toContainText('Hago QA en sistemas bancarios');
+  await expect(page.locator('h1 em')).toHaveText('sistemas bancarios');
+  await expect(page.getByRole('link', { name: 'Coordinemos una entrevista' })).toHaveAttribute('href', EMAIL);
+  await expect(page.getByRole('link', { name: 'Ver mi recorrido' })).toHaveAttribute('href', '#sobre-mi');
+});
+
+test('sobre mí cuenta el recorrido y destaca la integración HSBC → Galicia', async ({ page }) => {
+  const seccion = page.locator('#sobre-mi');
+  await expect(seccion.locator('h2')).toHaveText('De la pantalla del CRM al batch del mainframe');
+  await expect(seccion.getByRole('listitem').filter({ hasText: 'QA Engineer' })).toContainText(
+    'integración de HSBC con Galicia',
+  );
+});
+
+test('contacto invita a coordinar una entrevista', async ({ page }) => {
+  await expect(page.locator('#contacto h2')).toHaveText('¿Buscás QA para un equipo de banca o fintech?');
+});
+
 test('la foto de perfil tiene texto alternativo', async ({ page }) => {
   const foto = page.locator('#home img');
   await expect(foto).toHaveAttribute('alt', /\S+/);

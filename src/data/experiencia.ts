@@ -14,7 +14,7 @@ export const experiencia: Experiencia[] = [
     empresa: 'CDA Informática',
     periodo: 'jun. 2026 – actualidad',
     descripcion:
-      'QA funcional y técnico sobre mainframe: pruebas de procesos batch y reportes críticos, validación de datos en DB2 y trazabilidad de punta a punta contra cada requerimiento.',
+      'Pruebo procesos batch y reportes críticos sobre mainframe. Valido los resultados contra DB2 y dejo evidencia trazable de cada requerimiento en Jira/Xray.',
     tags: ['z/OS', 'COBOL', 'JCL', 'DB2', 'Control-M', 'Jira/Xray'],
   },
   {
@@ -23,7 +23,7 @@ export const experiencia: Experiencia[] = [
     empresa: 'Banco Galicia',
     periodo: 'ene. 2024 – jun. 2026',
     descripcion:
-      'Testing E2E de sistemas core de pagos sobre microservicios: validación de APIs y contratos, pruebas de performance y virtualización de servicios para entornos desacoplados.',
+      'Probé el core de pagos, armado sobre microservicios. En la integración de HSBC con Galicia me ocupé de las pruebas no funcionales: performance con JMeter, armado de datos de prueba y validación de backend. Virtualicé servicios con Parasoft para probar sin esperar a otros equipos.',
     tags: ['Postman', 'SoapUI', 'JMeter', 'Parasoft Virtualize', 'SQL Server'],
   },
   {
@@ -32,7 +32,7 @@ export const experiencia: Experiencia[] = [
     empresa: 'Banco Galicia',
     periodo: 'sept. 2022 – dic. 2023',
     descripcion:
-      'Testing funcional E2E del CRM interno, desde la interacción del agente hasta el impacto en backend. UAT con referentes de negocio y gestión de defectos priorizados por impacto.',
+      'Probé de punta a punta el CRM interno, desde la pantalla del agente hasta SQL Server. Hice UAT junto a referentes de negocio y prioricé defectos según su impacto.',
     tags: ['HP ALM', 'SQL Server', 'Scrum'],
   },
 ];
