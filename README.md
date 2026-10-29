@@ -48,6 +48,10 @@ npm test         # build + suite completa
 npx playwright show-report
 ```
 
+## Deploy
+
+Cada push a `main` corre los tests y, si pasan, publica en GitHub Pages. Requisito de una sola vez: en **Settings → Pages → Source** elegir **GitHub Actions**.
+
 ## Estructura
 
 ```
