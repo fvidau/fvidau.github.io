@@ -69,10 +69,16 @@ test.describe('en una pantalla grande', () => {
 
   test('al llegar al final de la página "Contacto" queda activo', async ({ page }) => {
     await abrir(page);
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await expect(
-      page.getByRole('navigation').getByRole('link', { name: 'Contacto', exact: true }),
-    ).toContainClass('active');
+    const contacto = page.getByRole('navigation').getByRole('link', { name: 'Contacto', exact: true });
+    // Si la página crece después del primer scroll (fuentes o imágenes que terminan de cargar),
+    // se vuelve a bajar, como haría una persona, hasta estar realmente al final.
+    await expect(async () => {
+      await page.evaluate(() =>
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }),
+      );
+      expect(await alFinalDeLaPagina(page)).toBe(true);
+      await expect(contacto).toContainClass('active', { timeout: 1_000 });
+    }).toPass();
   });
 });
 
