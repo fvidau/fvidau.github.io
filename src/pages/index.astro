@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import SobreMi from '../components/SobreMi.astro';
+import Proyectos from '../components/Proyectos.astro';
+import Contacto from '../components/Contacto.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="fmv · QA Engineer"
+  description="QA con 4 años en sistemas bancarios: pagos, microservicios y mainframe. Participé en la integración de HSBC con Galicia y estoy construyendo agentes de IA para testing."
+>
+  <Nav />
+  <Hero />
+  <main>
+    <SobreMi />
+    <Proyectos />
+    <Contacto />
+  </main>
+  <Footer />
+</Base>

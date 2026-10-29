@@ -1,0 +1,47 @@
+---
+const links = [
+  { href: '#home', texto: 'Home' },
+  { href: '#sobre-mi', texto: 'Sobre mí' },
+  { href: '#proyectos', texto: 'Proyectos' },
+  { href: '#contacto', texto: 'Contacto' },
+];
+---
+
+<nav
+  id="nav"
+  class="fixed inset-x-0 top-0 z-10 border-b border-transparent bg-bg/80 backdrop-blur-md transition-colors [&.scrolled]:border-line"
+>
+  <div class="wrap flex h-16 items-center justify-between">
+    <a href="#home" class="font-mono text-xl font-semibold text-matrix">fmv<span class="text-muted">_</span></a>
+    <ul class="flex list-none gap-4 text-[13px] sm:gap-7 sm:text-sm">
+      {
+        links.map(({ href, texto }) => (
+          <li>
+            <a href={href} class="text-muted transition-colors hover:text-matrix [&.active]:text-matrix">
+              {texto}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // Borde al hacer scroll y link activo según la sección visible.
+  const nav = document.getElementById('nav')!;
+  const links = [...nav.querySelectorAll<HTMLAnchorElement>('ul a')];
+  const secciones = [...document.querySelectorAll<HTMLElement>('#home, main section')];
+
+  const actualizar = () => {
+    nav.classList.toggle('scrolled', scrollY > 10);
+    const alFinal = innerHeight + scrollY >= document.body.scrollHeight - 2;
+    const actual = alFinal
+      ? secciones.at(-1)
+      : secciones.filter((s) => s.offsetTop <= scrollY + innerHeight * 0.4).at(-1);
+    links.forEach((a) => a.classList.toggle('active', a.hash === `#${actual?.id}`));
+  };
+
+  addEventListener('scroll', actualizar, { passive: true });
+  actualizar();
+</script>

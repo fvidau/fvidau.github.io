@@ -1,0 +1,39 @@
+---
+import MatrixRain from './MatrixRain.astro';
+import { contacto } from '../data/contacto';
+---
+
+<header id="home" class="relative flex min-h-screen items-center overflow-hidden">
+  <MatrixRain />
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-bg)_85%)]"
+  >
+  </div>
+  <div class="wrap relative z-[1] grid items-center gap-8 pt-24 sm:grid-cols-[1fr_auto] sm:gap-14 sm:pt-0">
+    <div>
+      <p class="mb-4 font-mono text-sm text-matrix">&gt; qa_engineer --ai-agents <span class="cursor"></span></p>
+      <h1 class="mb-5 text-[clamp(32px,5vw,48px)] leading-[1.15] font-bold tracking-[-.02em]">
+        Hago QA en <em class="text-matrix not-italic">sistemas bancarios</em>, donde un error le cuesta plata a alguien.
+      </h1>
+      <p class="mb-8 max-w-[520px] text-[17px] text-muted">
+        Hace 4 años pruebo pagos, microservicios y mainframe, y participé en la integración de HSBC con Galicia. Ahora
+        estoy construyendo agentes de IA que hagan parte de ese trabajo.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href={`mailto:${contacto.email}`} class="btn btn-primary">Coordinemos una entrevista</a>
+        <a href="#sobre-mi" class="btn btn-ghost">Ver mi recorrido</a>
+      </div>
+    </div>
+    <div
+      class="-order-1 size-[140px] overflow-hidden rounded-full border-2 border-matrix shadow-[0_0_0_6px_var(--color-bg),0_0_0_7px_var(--color-line),0_0_48px_var(--color-glow)] sm:order-none sm:size-60"
+    >
+      <img
+        src="/foto.png"
+        alt="Foto de perfil de fmv"
+        width="319"
+        height="302"
+        class="block size-full scale-[1.14] object-cover object-[50%_48%]"
+      />
+    </div>
+  </div>
+</header>

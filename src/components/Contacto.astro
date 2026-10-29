@@ -1,0 +1,34 @@
+---
+import { contacto } from '../data/contacto';
+
+const canales = [
+  { tipo: 'email', texto: contacto.email, href: `mailto:${contacto.email}`, externo: false },
+  { tipo: 'linkedin', texto: '/in/fvidaurre-qa', href: contacto.linkedin, externo: true },
+  { tipo: 'github', texto: '@fvidau', href: contacto.github, externo: true },
+];
+---
+
+<section id="contacto" class="py-18 sm:py-24">
+  <div class="wrap">
+    <span class="label">// contacto</span>
+    <h2 class="mb-2 text-[28px] font-bold tracking-[-.01em]">¿Buscás QA para un equipo de banca o fintech?</h2>
+    <p class="mb-12 max-w-[640px] text-muted">Escribime y coordinamos una entrevista.</p>
+    <ul class="grid list-none gap-4 sm:grid-cols-3">
+      {
+        canales.map(({ tipo, texto, href, externo }) => (
+          <li>
+            <a
+              href={href}
+              target={externo ? '_blank' : undefined}
+              rel={externo ? 'noopener noreferrer' : undefined}
+              class="block rounded-xl border border-line bg-surface p-5 transition-all hover:border-matrix hover:shadow-[0_0_24px_var(--color-glow)]"
+            >
+              <small class="mb-1 block font-mono text-xs text-matrix">{tipo}</small>
+              <strong class="text-sm font-medium break-all">{texto}</strong>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
