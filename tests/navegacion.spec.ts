@@ -36,12 +36,12 @@ for (const { link, id } of SECCIONES.slice(1)) {
 test('el link de la sección visible queda marcado como activo', async ({ page }) => {
   await page.goto('/');
   const nav = page.getByRole('navigation');
-  await expect(nav.getByRole('link', { name: 'Home', exact: true })).toHaveClass(/active/);
+  await expect(nav.getByRole('link', { name: 'Home', exact: true })).toContainClass('active');
 
   await page.locator('#sobre-mi').scrollIntoViewIfNeeded();
   await page.evaluate(() => window.scrollTo(0, document.getElementById('sobre-mi')!.offsetTop));
-  await expect(nav.getByRole('link', { name: 'Sobre mí', exact: true })).toHaveClass(/active/);
-  await expect(nav.getByRole('link', { name: 'Home', exact: true })).not.toHaveClass(/active/);
+  await expect(nav.getByRole('link', { name: 'Sobre mí', exact: true })).toContainClass('active');
+  await expect(nav.getByRole('link', { name: 'Home', exact: true })).not.toContainClass('active');
 });
 
 test('al llegar al final de la página "Contacto" queda activo', async ({ page }) => {
@@ -49,7 +49,7 @@ test('al llegar al final de la página "Contacto" queda activo', async ({ page }
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await expect(
     page.getByRole('navigation').getByRole('link', { name: 'Contacto', exact: true }),
-  ).toHaveClass(/active/);
+  ).toContainClass('active');
 });
 
 test('entrar directo con #proyectos muestra la sección debajo del nav', async ({ page }) => {

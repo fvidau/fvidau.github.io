@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* Tokens del diseño aprobado (ver AGENTS.md) */
+@theme {
+  --color-bg: #050705;
+  --color-surface: #0c110c;
+  --color-line: #1a241a;
+  --color-line-hover: #2a3a2a;
+  --color-ink: #e8ece8;
+  --color-muted: #8a948a;
+  --color-matrix: #00ff41;
+  --color-matrix-dim: #00c834;
+  --color-glow: rgb(0 255 65 / 0.18);
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+  body {
+    @apply bg-bg text-ink font-sans leading-relaxed antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-matrix);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto max-w-[880px] px-4 sm:px-6;
+  }
+  .label {
+    @apply mb-2 block font-mono text-[13px] text-matrix;
+  }
+  .btn {
+    @apply rounded-lg border border-matrix px-[22px] py-[11px] text-sm font-medium transition-all;
+  }
+  .btn-primary {
+    @apply bg-matrix text-black hover:border-matrix-dim hover:bg-matrix-dim;
+  }
+  .btn-ghost {
+    @apply text-matrix hover:bg-glow;
+  }
+  .cursor {
+    display: inline-block;
+    width: 9px;
+    height: 1.1em;
+    background: var(--color-matrix);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1) infinite;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .cursor {
+    animation: none;
+  }
+}

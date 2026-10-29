@@ -1,4 +1,23 @@
-<html lang="es">
-  <head><meta charset="utf-8" /><title>placeholder</title></head>
-  <body></body>
-</html>
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import SobreMi from '../components/SobreMi.astro';
+import Proyectos from '../components/Proyectos.astro';
+import Contacto from '../components/Contacto.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="fmv · QA Engineer"
+  description="QA Engineer especializado en sistemas críticos de banca. Construyo agentes de IA aplicados a la calidad de software."
+>
+  <Nav />
+  <Hero />
+  <main>
+    <SobreMi />
+    <Proyectos />
+    <Contacto />
+  </main>
+  <Footer />
+</Base>

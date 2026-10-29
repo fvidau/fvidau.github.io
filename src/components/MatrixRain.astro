@@ -1,0 +1,36 @@
+<canvas
+  id="rain"
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-0 h-full w-full opacity-[.14] motion-reduce:hidden"></canvas>
+
+<script>
+  // Lluvia de caracteres estilo Matrix, sutil y solo en el hero.
+  const canvas = document.getElementById('rain') as HTMLCanvasElement;
+  const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (canvas && !sinMovimiento) {
+    const ctx = canvas.getContext('2d')!;
+    const chars = 'アイウエオカキクケコサシスセソ01QAテスト<>{}=';
+    const size = 16;
+    let gotas: number[] = [];
+
+    const redimensionar = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      gotas = Array.from({ length: Math.ceil(canvas.width / size) }, () => Math.random() * -50);
+    };
+    redimensionar();
+    addEventListener('resize', redimensionar);
+
+    setInterval(() => {
+      ctx.fillStyle = 'rgba(5,7,5,.12)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = `${size}px "JetBrains Mono", monospace`;
+      gotas.forEach((y, i) => {
+        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * size, y * size);
+        gotas[i] = y * size > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+      });
+    }, 60);
+  }
+</script>
