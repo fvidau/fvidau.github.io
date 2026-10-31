@@ -25,13 +25,13 @@
 
 | # | Observación | Evidencia | Decisión de fmv |
 |---|---|---|---|
-| 1 | Falta `favicon.ico` (404 en consola en cada carga de página). | Mensaje de consola: `Failed to load resource: 404 @ /favicon.ico` | |
-| 2 | Los links del nav (`Home`, `Sobre mí`, `Proyectos`, `Contacto`) tienen un área de toque de solo ~16-21px de alto, sin padding, muy por debajo de los ~44px de las CTA y los ~88px de los links de contacto. En un celular real esto puede causar toques fallidos o al link vecino. | `03-nav.png` + medición `getBoundingClientRect()` (alto real: 16-21px) | |
+| 1 | Falta `favicon.ico` (404 en consola en cada carga de página). | Mensaje de consola: `Failed to load resource: 404 @ /favicon.ico` | Arreglar |
+| 2 | Los links del nav (`Home`, `Sobre mí`, `Proyectos`, `Contacto`) tienen un área de toque de solo ~16-21px de alto, sin padding, muy por debajo de los ~44px de las CTA y los ~88px de los links de contacto. En un celular real esto puede causar toques fallidos o al link vecino. | `03-nav.png` + medición `getBoundingClientRect()` (alto real: 16-21px) | Arreglar |
 | 3 | La sección "Proyectos" no muestra ningún proyecto concreto, solo un placeholder "próximamente" y un link al perfil de GitHub. Para la misión (reclutador evaluando si escribir), es el punto más débil del recorrido: no hay evidencia tangible de trabajo más allá del timeline de experiencia. | `05-proyectos.png` | |
-| 4 | No hay meta tag `og:image`. Si el link se comparte (WhatsApp/LinkedIn/Slack), la vista previa no incluye imagen, solo título y descripción. | `meta[property="og:image"]` ausente (verificado por JS) | |
+| 4 | No hay meta tag `og:image`. Si el link se comparte (WhatsApp/LinkedIn/Slack), la vista previa no incluye imagen, solo título y descripción. | `meta[property="og:image"]` ausente (verificado por JS) | Arreglar |
 
 ## Tests propuestos
-Ninguno por ahora. Los hallazgos quedan sin decisión de fmv.
+Uno por cada hallazgo aprobado (1, 2 y 4), en `tests/contenido.spec.ts` y `tests/responsive.spec.ts`. El hallazgo 3 queda sin decisión de fmv.
 
 ## Conclusión
 
