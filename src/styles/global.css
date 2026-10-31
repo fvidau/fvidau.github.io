@@ -18,8 +18,11 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     scroll-padding-top: 72px;
+  }
+  /* Se activa desde Nav.astro: el salto inicial a un ancla tiene que ser instantáneo. */
+  html.scroll-suave {
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-bg text-ink font-sans leading-relaxed antialiased;
