@@ -2,6 +2,8 @@
 
 Cada charter es una sesión de testing exploratorio sobre el sitio publicado, hecha por Claude Code con Playwright MCP y dirigida por fmv. Un archivo por sesión: `AAAA-MM-DD-tema.md`.
 
+**Estado:** en pausa después de [la primera sesión](2026-10-31-reclutador-mobile.md), que costó muchos tokens para lo que aportó en un sitio de este tamaño. El servidor MCP se sacó del repo; para retomar hay que volver a agregarlo.
+
 ## Cómo se trabaja
 
 1. fmv elige la misión y el riesgo a explorar.
