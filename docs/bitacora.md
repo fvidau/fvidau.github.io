@@ -54,3 +54,19 @@ Ejecutado con la skill `superpowers:executing-plans` siguiendo el plan tarea por
 **Resultado:** 36 tests en verde en Chromium, Firefox, WebKit y mobile; axe sin violaciones serias ni críticas; `astro check` sin errores.
 
 **fmv:** _(espacio para tus notas)_
+
+## Etapa 2: exploración con Playwright MCP (2026-10-31)
+
+**Qué se hizo**
+- Configuración de Playwright MCP y una prueba real del servidor contra el sitio publicado.
+- Una sesión exploratoria con un [charter](qa/charters/2026-10-31-reclutador-mobile.md): un reclutador IT que entra desde el celular.
+
+**Resultado**
+- Nada roto y 4 hallazgos de mejora, todos ya conocidos.
+- La sesión no probó un celular real: fue Chromium de escritorio con la ventana achicada.
+
+**Decisiones de fmv**
+- Pausar la exploración con agentes en este proyecto: usó muchos tokens para una tarea poco útil, aunque sirvió como aprendizaje.
+- Sacar el servidor MCP del repo y guardar el charter como registro.
+
+**fmv:** _(espacio para tus notas)_
