@@ -64,6 +64,6 @@ tests/          Suites de Playwright
 docs/           Diseño, plan, bitácora y mockup
 ```
 
-## Próximo paso
+## Exploración con agentes
 
-Exploración agéntica con **Playwright MCP**: Claude Code recorre el sitio publicado como un usuario, genera *user-journey charters* y propone tests nuevos que reviso antes de sumarlos.
+Probé una sesión de exploración con **Playwright MCP**: Claude Code recorrió el sitio publicado como un reclutador desde el celular. Encontró solo problemas ya conocidos y usó muchos tokens, así que en este proyecto queda en pausa. Detalle en el [charter](docs/qa/charters/2026-10-31-reclutador-mobile.md).
