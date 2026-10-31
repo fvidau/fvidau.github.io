@@ -44,4 +44,10 @@ const links = [
 
   addEventListener('scroll', actualizar, { passive: true });
   actualizar();
+
+  // Las fuentes web cambian la altura de la página: al entrar con un ancla, el salto inicial queda corrido.
+  document.fonts.ready.then(() => {
+    document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' });
+    document.documentElement.classList.add('scroll-suave');
+  });
 </script>
