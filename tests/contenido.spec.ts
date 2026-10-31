@@ -36,9 +36,28 @@ test('el hero presenta el perfil y lleva a la entrevista', async ({ page }) => {
 test('sobre mí cuenta el recorrido y destaca la integración HSBC → Galicia', async ({ page }) => {
   const seccion = page.locator('#sobre-mi');
   await expect(seccion.locator('h2')).toHaveText('De la pantalla del CRM al batch del mainframe');
-  await expect(seccion.getByRole('listitem').filter({ hasText: 'QA Engineer' })).toContainText(
+  await expect(seccion.getByRole('listitem').filter({ hasText: 'ene. 2024' })).toContainText(
     'integración de HSBC con Galicia',
   );
+});
+
+test('el recorrido muestra los dos pasos como Analyst y el actual como Engineer', async ({ page }) => {
+  await expect(page.locator('#sobre-mi h3')).toHaveText(['QA Engineer', 'QA Analyst', 'QA Analyst']);
+});
+
+test('cada paso del recorrido detalla sus tareas', async ({ page }) => {
+  const pasos = [
+    { periodo: 'jun. 2026 – actualidad', detalle: ['criterios de aceptación verificables', 'SQL sobre DB2', 'Jira/Xray'] },
+    { periodo: 'ene. 2024', detalle: ['contratos, payloads e integraciones', 'Parasoft Virtualize', 'code scanning'] },
+    { periodo: 'sept. 2022', detalle: ['frontend ↔ servicios ↔ SQL Server', 'pruebas exploratorias', 'HP ALM'] },
+  ];
+  for (const { periodo, detalle } of pasos) {
+    const paso = page.locator('#sobre-mi li').filter({ hasText: periodo });
+    await expect(paso.getByRole('list', { name: 'Tareas' }).getByRole('listitem')).not.toHaveCount(0);
+    for (const texto of detalle) {
+      await expect(paso.getByRole('list', { name: 'Tareas' })).toContainText(texto);
+    }
+  }
 });
 
 test('contacto invita a coordinar una entrevista', async ({ page }) => {
