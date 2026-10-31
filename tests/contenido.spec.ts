@@ -19,6 +19,36 @@ test('metadatos básicos: idioma, título y descripción', async ({ page }) => {
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.{40,}/);
 });
 
+test('el sitio tiene favicon y cargar la página no da errores 404', async ({ page, request }) => {
+  const icono = await page.locator('link[rel="icon"]').getAttribute('href');
+  expect(icono).toBeTruthy();
+  expect((await request.get(icono!)).ok()).toBe(true);
+
+  const fallidas: string[] = [];
+  page.on('response', (r) => {
+    if (r.status() >= 400) fallidas.push(r.url());
+  });
+  await page.reload({ waitUntil: 'networkidle' });
+  expect(fallidas).toEqual([]);
+});
+
+test('compartir el link muestra una imagen de 1200x630 con URL absoluta', async ({ page, request }) => {
+  const meta = (propiedad: string) => page.locator(`meta[property="${propiedad}"]`);
+  await expect(meta('og:image:width')).toHaveAttribute('content', '1200');
+  await expect(meta('og:image:height')).toHaveAttribute('content', '630');
+  await expect(meta('og:image:alt')).toHaveAttribute('content', /\S+/);
+
+  // Las redes solo aceptan URLs absolutas; el archivo se pide al sitio local porque puede no estar publicado aún.
+  const url = new URL((await meta('og:image').getAttribute('content'))!);
+  expect(url.origin).toBe('https://fvidau.github.io');
+  const imagen = await request.get(url.pathname);
+  expect(imagen.ok()).toBe(true);
+  expect(imagen.headers()['content-type']).toBe('image/png');
+  // El ancho y el alto declarados tienen que ser los reales: se leen del encabezado del PNG.
+  const png = await imagen.body();
+  expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
+});
+
 test('hay un solo h1 y cada sección tiene su título h2', async ({ page }) => {
   await expect(page.locator('h1')).toHaveCount(1);
   for (const id of ['sobre-mi', 'proyectos', 'contacto']) {
