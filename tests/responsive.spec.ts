@@ -24,6 +24,18 @@ test('a 375px los 4 links del nav se ven y llevan a su sección', async ({ page 
   await expect(page.locator('#contacto h2')).toBeInViewport();
 });
 
+test('a 375px el logo y los links del nav se pueden tocar con el dedo (44px)', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  const links = page.getByRole('navigation').getByRole('link');
+  await expect(links).toHaveCount(5);
+  for (const link of await links.all()) {
+    const box = await link.boundingBox();
+    expect(box?.height, await link.innerText()).toBeGreaterThanOrEqual(44);
+    expect(box?.width, await link.innerText()).toBeGreaterThanOrEqual(44);
+  }
+});
+
 test('con movimiento reducido la lluvia Matrix no se muestra', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
