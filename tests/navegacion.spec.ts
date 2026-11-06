@@ -24,6 +24,32 @@ for (const { texto, ruta } of LINKS) {
   });
 }
 
+// El sitio fue de una sola página con anclas: los links viejos compartidos tienen que seguir funcionando.
+for (const { texto, ruta } of LINKS.slice(1)) {
+  const ancla = ruta.replaceAll('/', '');
+  test(`el link viejo /#${ancla} redirige a la página de ${texto}`, async ({ page }) => {
+    await page.goto(`/#${ancla}`);
+    await expect(page).toHaveURL(ruta);
+  });
+}
+
+for (const ancla of ['home', 'algo']) {
+  test(`/#${ancla} se queda en la Home sin redirigir`, async ({ page }) => {
+    await page.goto(`/#${ancla}`);
+    await page.waitForTimeout(1_000);
+    await expect(page).toHaveURL(`/#${ancla}`);
+    await expect(page.locator('main h1')).toContainText('Hago QA en sistemas bancarios');
+  });
+}
+
+test('una página que no existe muestra el 404 con el menú', async ({ page }) => {
+  const respuesta = await page.goto('/no-existe/');
+  expect(respuesta?.status()).toBe(404);
+  await expect(page.locator('main h1')).toHaveText('Esta página no existe');
+  await expect(page.getByRole('navigation').getByRole('link', { name: 'Home', exact: true })).toBeVisible();
+  await expect(page.locator('main').getByRole('link', { name: 'Volver al inicio' })).toHaveAttribute('href', '/');
+});
+
 test('el logo lleva a la Home', async ({ page }) => {
   await page.goto('/proyectos/');
   await page.getByRole('navigation').getByRole('link', { name: 'fmv_' }).click();

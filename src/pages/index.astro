@@ -7,6 +7,11 @@ import Hero from '../components/Hero.astro';
   title="fmv · QA Engineer"
   description="QA con 4 años en sistemas bancarios: pagos, microservicios y mainframe. Participé en la integración de HSBC con Galicia y estoy construyendo agentes de IA para testing."
 >
+  <script is:inline>
+    // Links viejos de cuando el sitio era una sola página con anclas.
+    const destinos = { '#sobre-mi': '/sobre-mi/', '#proyectos': '/proyectos/', '#contacto': '/contacto/' };
+    if (destinos[location.hash]) location.replace(destinos[location.hash]);
+  </script>
   <main>
     <Hero />
   </main>
