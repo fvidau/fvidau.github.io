@@ -31,10 +31,11 @@ Además del sitio, el repo documenta un ciclo completo de desarrollo hecho junto
 
 | Suite | Cubre |
 |---|---|
-| `tests/navegacion.spec.ts` | Links del nav, sección activa al hacer scroll, anclas directas, navegación con teclado |
-| `tests/contenido.spec.ts` | Metadatos, jerarquía de títulos, textos clave, links de contacto reales, links externos seguros |
-| `tests/accesibilidad.spec.ts` | Sin violaciones WCAG 2.1 AA serias o críticas (axe) |
-| `tests/responsive.spec.ts` | Sin scroll horizontal a 375px, nav usable en mobile, respeto de `prefers-reduced-motion` |
+| `tests/navegacion.spec.ts` | Cada link del menú lleva a su página y la marca como actual, links viejos con ancla, página 404, navegación con teclado |
+| `tests/contenido.spec.ts` | Título, descripción, canonical y `h1` de cada página, textos clave, botones de contacto, tarjetas de proyectos, links externos seguros |
+| `tests/accesibilidad.spec.ts` | Sin violaciones WCAG 2.1 AA serias o críticas (axe), en cada página |
+| `tests/responsive.spec.ts` | Sin scroll horizontal a 375px en cada página, áreas táctiles de 44px, respeto de `prefers-reduced-motion` |
+| `tests/repos.spec.ts` | Unitario: la consulta a GitHub filtra forks y archivados, ordena y falla si la API no responde |
 
 ## Correrlo localmente
 
@@ -52,13 +53,16 @@ npx playwright show-report
 
 Cada push a `main` corre los tests y, si pasan, publica en GitHub Pages. Requisito de una sola vez: en **Settings → Pages → Source** elegir **GitHub Actions**.
 
+La página de Proyectos consulta los repos públicos a la API de GitHub al construir el sitio. Si la API no responde, el build falla y queda online la versión anterior. Un repo nuevo aparece en el próximo deploy.
+
 ## Estructura
 
 ```
 src/
+  pages/        Una página por archivo: Home, Sobre mí, Proyectos, Contacto y 404
   components/   Una sección por componente (Nav, Hero, SobreMi, Timeline, Proyectos, Contacto...)
-  data/         Experiencia y datos de contacto
-  layouts/      Head, metadatos y fuentes
+  data/         Menú, experiencia, contacto y consulta de repos a GitHub
+  layouts/      Head, metadatos, fuentes, nav y footer
   styles/       Tokens del diseño (Tailwind @theme)
 tests/          Suites de Playwright
 docs/           Diseño, plan, bitácora y mockup

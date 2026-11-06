@@ -4,8 +4,9 @@ Sitio personal de fmv: QA Engineer que construye agentes de IA aplicados a la ca
 
 ## Estado actual
 - Publicado en `https://fvidau.github.io` con Astro + Tailwind, tests con Playwright y deploy a GitHub Pages.
-- En curso: pasar de una sola página a varias páginas. Diseño en
+- Sitio de varias páginas (Home, Sobre mí, Proyectos, Contacto). Diseño en
   `docs/superpowers/specs/2026-11-05-sitio-multipagina-design.md`.
+- Para sumar una página: crear el archivo en `src/pages/` y agregarla en `src/data/navegacion.ts`.
 - Registrar cada etapa en `docs/bitacora.md`.
 
 ## Diseño (aprobado, no cambiar sin pedirlo)
