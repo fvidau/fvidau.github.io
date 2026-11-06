@@ -34,13 +34,20 @@ fmv quiere que el portfolio pueda crecer: mejorar el contenido y, más adelante,
 - La Home lleva el hero con uno o más links de contacto. fmv delega cuáles según lo que espera el mercado.
 - Proyectos: tarjetas con lo que hay en GitHub; después se refina qué se muestra.
 - Más clics para el reclutador es aceptable: prioriza que el sitio escale.
+- Las acciones del hero son solo botones con íconos de apps (email, LinkedIn, WhatsApp o similares), sin palabras.
+- Aprobó el resto de las decisiones de Claude de la tabla siguiente.
 
 ## Decisiones de Claude (fmv puede cambiarlas)
 
 | Tema | Decisión | Por qué |
 |---|---|---|
-| Acciones del hero | Botón principal "Coordinemos una entrevista" (email), botón secundario "LinkedIn" y un link de texto "Ver mi recorrido" a `/sobre-mi/` | Los reclutadores IT trabajan sobre todo con LinkedIn y email. GitHub ya aparece en Proyectos y Contacto |
-| CV descargable | No se agrega | Es habitual en el mercado, pero no hay un CV en el repo. Se suma cuando fmv lo provea |
+| Acciones del hero | Solo botones con íconos, sin palabras (pedido de fmv): email, LinkedIn y WhatsApp si fmv da el número. Sin GitHub, que ya está en Proyectos y Contacto | Los reclutadores IT trabajan sobre todo con LinkedIn y email |
+| WhatsApp | Link `https://wa.me/5491127539151`, guardado en `src/data/contacto.ts` junto a los otros datos. También suma una tarjeta en la página de Contacto | fmv dio el número 11 2753-9151; se asume Argentina (+54 9). fmv lo verifica antes de publicar |
+| Ícono del email | Un sobre genérico, no el logo de Gmail | El link `mailto:` abre el cliente de correo de cada persona, que puede no ser Gmail |
+| Estilo de los íconos | Monocromo con el verde del sitio, en botones circulares de 44 px como mínimo | Los colores de cada marca romperían la regla de usar el verde solo en detalles |
+| Accesibilidad de los íconos | Cada botón tiene un nombre accesible (por ejemplo, "Escribirme por email") y un `title` para el tooltip | Sin palabras visibles, el lector de pantalla necesita el nombre |
+| "Ver mi recorrido" | Se quita del hero | fmv pidió solo botones con símbolos; Sobre mí queda en el menú |
+| CV descargable | No se agrega por ahora | fmv lo va a pasar más adelante |
 | Origen de las tarjetas | La API pública de GitHub, consultada al construir el sitio | Los repos nuevos aparecen solos en el próximo deploy, sin mantener una lista a mano |
 | Qué repos | Públicos, sin forks ni archivados, ordenados por último push | Es "lo que hay en GitHub", sin ruido |
 | Si la API falla | El build falla y no se publica nada | Cumple el anti-objetivo de no publicar Proyectos vacío. El sitio anterior queda online |
@@ -71,7 +78,7 @@ fmv quiere que el portfolio pueda crecer: mejorar el contenido y, más adelante,
 - Cada link del menú lleva a su página y queda marcado con `aria-current="page"`; ningún otro lo tiene.
 - El logo lleva a la Home.
 - Teclado: Tab recorre el logo y los links en orden, con foco visible.
-- Home: el hero, las tres acciones con su destino correcto y la lluvia Matrix oculta con movimiento reducido.
+- Home: el hero, cada botón de contacto con su destino correcto, nombre accesible y 44 px como mínimo, y la lluvia Matrix oculta con movimiento reducido.
 - Sobre mí, Proyectos y Contacto: el contenido que hoy se verifica, cada uno en su página.
 - Proyectos: al menos una tarjeta; cada una tiene nombre y link a `https://github.com/fvidau/<repo>`; el repo del portfolio aparece; ningún fork.
 - Cada página: título y descripción propios, un solo `h1`, canonical correcto, sin scroll horizontal a 375 px y sin violaciones serias de axe.
