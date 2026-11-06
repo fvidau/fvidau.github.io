@@ -1,9 +1,16 @@
 ---
 import MatrixRain from './MatrixRain.astro';
+import Icono from './Icono.astro';
 import { contacto } from '../data/contacto';
+
+const acciones = [
+  { icono: 'email', nombre: 'Escribirme por email', href: `mailto:${contacto.email}`, externo: false },
+  { icono: 'linkedin', nombre: 'Mi perfil de LinkedIn', href: contacto.linkedin, externo: true },
+  { icono: 'whatsapp', nombre: 'Escribirme por WhatsApp', href: contacto.whatsapp, externo: true },
+] as const;
 ---
 
-<header id="home" class="relative flex min-h-screen items-center overflow-hidden">
+<section class="relative flex min-h-screen items-center overflow-hidden">
   <MatrixRain />
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-bg)_85%)]"
@@ -19,10 +26,24 @@ import { contacto } from '../data/contacto';
         Hace 4 años pruebo pagos, microservicios y mainframe, y participé en la integración de HSBC con Galicia. Ahora
         estoy construyendo agentes de IA que hagan parte de ese trabajo.
       </p>
-      <div class="flex flex-wrap gap-3">
-        <a href={`mailto:${contacto.email}`} class="btn btn-primary">Coordinemos una entrevista</a>
-        <a href="#sobre-mi" class="btn btn-ghost">Ver mi recorrido</a>
-      </div>
+      <ul class="flex list-none gap-3">
+        {
+          acciones.map(({ icono, nombre, href, externo }) => (
+            <li>
+              <a
+                href={href}
+                aria-label={nombre}
+                title={nombre}
+                target={externo ? '_blank' : undefined}
+                rel={externo ? 'noopener noreferrer' : undefined}
+                class="grid size-12 place-items-center rounded-full border border-line text-matrix transition-all hover:border-matrix hover:shadow-[0_0_24px_var(--color-glow)]"
+              >
+                <Icono nombre={icono} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
     <div
       class="-order-1 size-[140px] overflow-hidden rounded-full border-2 border-matrix shadow-[0_0_0_6px_var(--color-bg),0_0_0_7px_var(--color-line),0_0_48px_var(--color-glow)] sm:order-none sm:size-60"
@@ -36,4 +57,4 @@ import { contacto } from '../data/contacto';
       />
     </div>
   </div>
-</header>
+</section>

@@ -57,26 +57,34 @@ El `.map()` recorre la lista y genera un `<li>` por canal. Al navegador del visi
 
 ```
 src/
-├── pages/index.astro      ← LA página. Arma todo juntando componentes
-├── layouts/Base.astro     ← El "marco": <head>, metadatos, fuentes
+├── pages/                ← Una página por archivo: la ruta sale del nombre
+│   ├── index.astro        (/ : el hero)
+│   ├── sobre-mi.astro     (/sobre-mi/)
+│   ├── proyectos.astro    (/proyectos/)
+│   ├── contacto.astro     (/contacto/)
+│   └── 404.astro          (cualquier ruta que no existe)
+├── layouts/Base.astro     ← El "marco": <head>, metadatos, fuentes, nav y footer
 ├── components/            ← Una pieza por sección
-│   ├── Nav.astro          (+ script del link activo)
-│   ├── Hero.astro
+│   ├── Nav.astro          (marca la página actual al construir)
+│   ├── Hero.astro → usa Icono.astro
 │   ├── MatrixRain.astro   (+ script de la animación)
 │   ├── SobreMi.astro → usa Timeline.astro
 │   ├── Proyectos.astro
 │   ├── Contacto.astro
 │   └── Footer.astro
 ├── data/                  ← DATOS separados del diseño
+│   ├── navegacion.ts      (las páginas del menú)
 │   ├── experiencia.ts     (los 3 trabajos)
-│   └── contacto.ts        (email, LinkedIn, GitHub)
+│   ├── contacto.ts        (email, LinkedIn, WhatsApp, GitHub)
+│   └── repos.ts           (consulta los repos a la API de GitHub)
 └── styles/global.css      ← Colores y fuentes del diseño
-public/foto.png            ← Archivos que se copian tal cual
+public/                   ← Archivos que se copian tal cual (foto, favicon, imagen para compartir)
 ```
 
 Dos ideas de arquitectura sostienen esta estructura:
 
 - **Separar datos de presentación.** Para sumar un trabajo se edita solo [experiencia.ts](../src/data/experiencia.ts) y el timeline se regenera. El email está definido **una sola vez** en [contacto.ts](../src/data/contacto.ts) y lo usan el hero y la sección de contacto. Este principio se llama *DRY* (Don't Repeat Yourself, "no te repitas").
+- **Sumar una página es sumar un archivo.** Astro convierte cada archivo de `src/pages/` en una ruta, y el menú sale de [navegacion.ts](../src/data/navegacion.ts). El nav y el footer viven en el layout, así que una página nueva los trae sin repetirlos.
 - **Un componente por responsabilidad.** Si algo falla en el nav, está en `Nav.astro`. Es la misma idea que el Page Object Model en automatización de tests: cada pieza tiene su lugar.
 
 ### Tailwind: estilos con clases utilitarias
@@ -97,9 +105,10 @@ Los colores propios (`line`, `surface`, `matrix`) se definen una sola vez en [gl
 
 ### El JavaScript que sí llega al navegador
 
-Casi todo es HTML estático. Solo dos `<script>` corren en el navegador del visitante:
+Casi todo es HTML estático. El link activo del menú se decide al construir: cada página ya sale con su link marcado con `aria-current="page"`. En el navegador corren solo tres scripts chicos:
 
-- **[Nav.astro](../src/components/Nav.astro):** escucha el scroll y marca en verde la sección visible.
+- **[Nav.astro](../src/components/Nav.astro):** muestra el borde inferior del nav al hacer scroll.
+- **[index.astro](../src/pages/index.astro):** redirige los links viejos con ancla, como `/#contacto`, a su página.
 - **[MatrixRain.astro](../src/components/MatrixRain.astro):** dibuja la lluvia en un `<canvas>` cada 60 ms. No se ejecuta si el usuario pidió reducir el movimiento.
 
 ## 3. Los tests: Playwright + axe

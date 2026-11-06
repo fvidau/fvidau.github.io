@@ -4,16 +4,17 @@ import { contacto } from '../data/contacto';
 const canales = [
   { tipo: 'email', texto: contacto.email, href: `mailto:${contacto.email}`, externo: false },
   { tipo: 'linkedin', texto: '/in/fvidaurre-qa', href: contacto.linkedin, externo: true },
+  { tipo: 'whatsapp', texto: '+54 9 11 2753-9151', href: contacto.whatsapp, externo: true },
   { tipo: 'github', texto: '@fvidau', href: contacto.github, externo: true },
 ];
 ---
 
-<section id="contacto" class="py-18 sm:py-24">
+<section id="contacto" class="pt-34 pb-18 sm:pt-40 sm:pb-24">
   <div class="wrap">
     <span class="label">// contacto</span>
-    <h2 class="mb-2 text-[28px] font-bold tracking-[-.01em]">¿Buscás QA para un equipo de banca o fintech?</h2>
+    <h1 class="mb-2 text-[28px] font-bold tracking-[-.01em]">¿Buscás QA para un equipo de banca o fintech?</h1>
     <p class="mb-12 max-w-[640px] text-muted">Escribime y coordinamos una entrevista.</p>
-    <ul class="grid list-none gap-4 sm:grid-cols-3">
+    <ul class="grid list-none gap-4 sm:grid-cols-2">
       {
         canales.map(({ tipo, texto, href, externo }) => (
           <li>

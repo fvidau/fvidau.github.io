@@ -70,3 +70,23 @@ Ejecutado con la skill `superpowers:executing-plans` siguiendo el plan tarea por
 - Sacar el servidor MCP del repo y guardar el charter como registro.
 
 **fmv:** _(espacio para tus notas)_
+
+## Etapa 3: sitio de varias páginas (2026-11-05)
+
+**Qué se hizo**
+- [Diseño](superpowers/specs/2026-11-05-sitio-multipagina-design.md) y [plan](superpowers/plans/2026-11-05-sitio-multipagina.md) para pasar de una página con anclas a cuatro páginas.
+- Menú por ruta: cada página sale marcada con `aria-current="page"` al construir. Se eliminó el script que calculaba la sección visible al scrollear, que era lo más frágil del sitio.
+- Hero con botones de contacto solo con íconos: email, LinkedIn y WhatsApp.
+- Proyectos con tarjetas de los repos públicos, consultados a la API de GitHub al construir. Si la API falla, el build falla y no se publica.
+- Links viejos con ancla redirigen a su página, y hay una página 404 propia.
+
+**Hallazgos de QA durante el desarrollo**
+- **Falso positivo contra la página 404.** Los tests de accesibilidad y de scroll horizontal de las páginas nuevas pasaban antes de crearlas, porque la página 404 de `astro preview` también tiene un `h1` dentro de `<main>`. La guarda ahora exige el `h1` exacto de cada página.
+- **Probar la falla de verdad.** Además del test unitario que simula un error de GitHub, se corrió el build con un token inválido: terminó con error y el mensaje nombra el status 401.
+
+**Decisiones de fmv**
+- Varias páginas para que el sitio pueda crecer, aunque el reclutador haga más clics.
+- La Home es solo el hero, con botones de contacto con íconos y sin palabras.
+- Proyectos muestra lo que hay en GitHub; qué se muestra se refina después.
+
+**fmv:** _(espacio para tus notas)_
