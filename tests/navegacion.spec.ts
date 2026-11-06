@@ -30,18 +30,28 @@ test('el logo lleva a la Home', async ({ page }) => {
   await expect(page).toHaveURL('/');
 });
 
-test('con Tab se recorre el logo y los 4 links del nav en orden, con foco visible', async ({ page }, testInfo) => {
+test('con Tab se recorre el nav y los botones de contacto del hero en orden, con foco visible', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === 'webkit', 'WebKit no enfoca links con Tab por defecto');
   await page.goto('/');
 
-  const esperados = ['fmv_', ...LINKS.map((l) => l.texto)];
-  for (const texto of esperados) {
+  // Los botones del hero no tienen texto: se identifican por su nombre accesible.
+  const esperados = [
+    'fmv_',
+    ...LINKS.map((l) => l.texto),
+    'Escribirme por email',
+    'Mi perfil de LinkedIn',
+    'Escribirme por WhatsApp',
+  ];
+  for (const nombre of esperados) {
     await page.keyboard.press('Tab');
     const foco = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement;
-      return { texto: el.textContent?.trim(), outline: getComputedStyle(el).outlineStyle };
+      return {
+        nombre: el.getAttribute('aria-label') ?? el.textContent?.trim(),
+        outline: getComputedStyle(el).outlineStyle,
+      };
     });
-    expect(foco.texto).toBe(texto);
+    expect(foco.nombre).toBe(nombre);
     expect(foco.outline).not.toBe('none');
   }
 });

@@ -40,6 +40,15 @@ test('a 375px el logo y los links del nav se pueden tocar con el dedo (44px)', a
   }
 });
 
+test('a 375px los botones de contacto del hero miden 44px como mínimo', async ({ page }) => {
+  await page.goto('/');
+  for (const nombre of ['Escribirme por email', 'Mi perfil de LinkedIn', 'Escribirme por WhatsApp']) {
+    const box = await page.locator('main').getByRole('link', { name: nombre, exact: true }).boundingBox();
+    expect(box?.width, nombre).toBeGreaterThanOrEqual(44);
+    expect(box?.height, nombre).toBeGreaterThanOrEqual(44);
+  }
+});
+
 test('con movimiento reducido la lluvia Matrix no se muestra', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');

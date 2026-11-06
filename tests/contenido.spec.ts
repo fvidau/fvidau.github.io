@@ -4,6 +4,13 @@ import { META, PAGINAS } from './paginas';
 const EMAIL = 'mailto:fvidaurre.qa@gmail.com';
 const LINKEDIN = 'https://www.linkedin.com/in/fvidaurre-qa';
 const GITHUB = 'https://github.com/fvidau';
+const WHATSAPP = 'https://wa.me/5491127539151';
+
+const ACCIONES_HERO = [
+  { nombre: 'Escribirme por email', href: EMAIL, externo: false },
+  { nombre: 'Mi perfil de LinkedIn', href: LINKEDIN, externo: true },
+  { nombre: 'Escribirme por WhatsApp', href: WHATSAPP, externo: true },
+];
 
 // El contenido es estático: alcanza con verificarlo en un navegador.
 test.beforeEach(({}, testInfo) => {
@@ -82,9 +89,21 @@ test.describe('home', () => {
     expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
   });
 
-  test('el hero presenta el perfil y lleva a la entrevista', async ({ page }) => {
+  test('el hero ofrece contactarme con botones de íconos, sin texto visible', async ({ page }) => {
     await expect(page.locator('h1 em')).toHaveText('sistemas bancarios');
-    await expect(page.getByRole('link', { name: 'Coordinemos una entrevista' })).toHaveAttribute('href', EMAIL);
+    const hero = page.locator('main');
+    for (const { nombre, href, externo } of ACCIONES_HERO) {
+      const boton = hero.getByRole('link', { name: nombre, exact: true });
+      await expect(boton).toHaveAttribute('href', href);
+      await expect(boton).toHaveAttribute('title', nombre);
+      expect((await boton.innerText()).trim()).toBe('');
+      if (externo) {
+        await expect(boton).toHaveAttribute('target', '_blank');
+        await expect(boton).toHaveAttribute('rel', /noopener/);
+      }
+    }
+    await expect(hero.getByRole('link', { name: 'Ver mi recorrido' })).toHaveCount(0);
+    await expect(hero.getByRole('link', { name: 'Coordinemos una entrevista' })).toHaveCount(0);
   });
 
   test('la foto de perfil tiene texto alternativo', async ({ page }) => {
@@ -135,4 +154,5 @@ test('los links de contacto apuntan a los datos reales', async ({ page }) => {
   await expect(contacto.locator(`a[href="${EMAIL}"]`)).toHaveCount(1);
   await expect(contacto.locator(`a[href="${LINKEDIN}"]`)).toHaveCount(1);
   await expect(contacto.locator(`a[href="${GITHUB}"]`)).toHaveCount(1);
+  await expect(contacto.locator(`a[href="${WHATSAPP}"]`)).toHaveCount(1);
 });

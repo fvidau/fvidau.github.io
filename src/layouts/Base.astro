@@ -35,7 +35,7 @@ const { title, description } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="flex min-h-screen flex-col [&>main]:flex-1">
     <Nav />
     <slot />
     <Footer />
