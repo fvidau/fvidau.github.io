@@ -3,7 +3,7 @@ import MatrixRain from './MatrixRain.astro';
 import { contacto } from '../data/contacto';
 ---
 
-<header id="home" class="relative flex min-h-screen items-center overflow-hidden">
+<section class="relative flex min-h-screen items-center overflow-hidden">
   <MatrixRain />
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-bg)_85%)]"
@@ -21,7 +21,7 @@ import { contacto } from '../data/contacto';
       </p>
       <div class="flex flex-wrap gap-3">
         <a href={`mailto:${contacto.email}`} class="btn btn-primary">Coordinemos una entrevista</a>
-        <a href="#sobre-mi" class="btn btn-ghost">Ver mi recorrido</a>
+        <a href="/sobre-mi/" class="btn btn-ghost">Ver mi recorrido</a>
       </div>
     </div>
     <div
@@ -36,4 +36,4 @@ import { contacto } from '../data/contacto';
       />
     </div>
   </div>
-</header>
+</section>

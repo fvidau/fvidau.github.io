@@ -1,27 +1,31 @@
 import { test, expect } from '@playwright/test';
+import { META, PAGINAS } from './paginas';
 
 test.beforeEach(({}, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'solo aplica al viewport de 375px');
 });
 
-test('a 375px no hay scroll horizontal', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.locator('h1')).toBeVisible();
-  const { ancho, viewport } = await page.evaluate(() => ({
-    ancho: document.documentElement.scrollWidth,
-    viewport: window.innerWidth,
-  }));
-  expect(ancho).toBeLessThanOrEqual(viewport);
-});
+for (const ruta of PAGINAS) {
+  test(`${ruta}: a 375px no hay scroll horizontal`, async ({ page }) => {
+    await page.goto(ruta);
+    await expect(page.locator('main h1')).toHaveText(META[ruta].h1);
+    const { ancho, viewport } = await page.evaluate(() => ({
+      ancho: document.documentElement.scrollWidth,
+      viewport: window.innerWidth,
+    }));
+    expect(ancho).toBeLessThanOrEqual(viewport);
+  });
+}
 
-test('a 375px los 4 links del nav se ven y llevan a su sección', async ({ page }) => {
+test('a 375px los 4 links del nav se ven y llevan a su página', async ({ page }) => {
   await page.goto('/');
   const nav = page.getByRole('navigation');
   for (const nombre of ['Home', 'Sobre mí', 'Proyectos', 'Contacto']) {
     await expect(nav.getByRole('link', { name: nombre, exact: true })).toBeInViewport();
   }
   await nav.getByRole('link', { name: 'Contacto', exact: true }).click();
-  await expect(page.locator('#contacto h2')).toBeInViewport();
+  await expect(page).toHaveURL('/contacto/');
+  await expect(page.locator('main h1')).toBeInViewport();
 });
 
 test('a 375px el logo y los links del nav se pueden tocar con el dedo (44px)', async ({ page }) => {
