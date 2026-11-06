@@ -29,6 +29,16 @@ for (const ruta of PAGINAS) {
     await expect(page.locator('main h1')).toHaveText(h1);
   });
 
+  test(`${ruta}: los niveles de título no saltan`, async ({ page }) => {
+    await page.goto(ruta);
+    await expect(page.locator('main h1')).toHaveText(META[ruta].h1);
+    // axe marca el salto de niveles como "moderado" y la suite de accesibilidad solo falla con serios o críticos.
+    const niveles = await page.locator('h1, h2, h3, h4, h5, h6').evaluateAll((els) => els.map((e) => Number(e.tagName[1])));
+    for (let i = 1; i < niveles.length; i++) {
+      expect(niveles[i] - niveles[i - 1], `niveles: ${niveles.join(',')}`).toBeLessThanOrEqual(1);
+    }
+  });
+
   test(`${ruta}: los links externos se abren en otra pestaña de forma segura`, async ({ page }) => {
     await page.goto(ruta);
     await expect(page.locator('main h1')).toHaveText(META[ruta].h1);
@@ -123,7 +133,7 @@ test.describe('sobre mí', () => {
   });
 
   test('el recorrido muestra los dos pasos como Analyst y el actual como Engineer', async ({ page }) => {
-    await expect(page.locator('main h3')).toHaveText(['QA Engineer', 'QA Analyst', 'QA Analyst']);
+    await expect(page.locator('main h2')).toHaveText(['QA Engineer', 'QA Analyst', 'QA Analyst']);
   });
 
   test('cada paso del recorrido detalla sus tareas', async ({ page }) => {
