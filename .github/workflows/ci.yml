@@ -30,6 +30,9 @@ jobs:
 
       - name: Tests E2E y accesibilidad
         run: npm test
+        env:
+          # El build consulta los repos en la API de GitHub; con token el límite sube de 60 consultas por hora.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publicar reporte de Playwright
         if: ${{ !cancelled() }}

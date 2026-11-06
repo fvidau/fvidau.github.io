@@ -1,5 +1,9 @@
 ---
 import { contacto } from '../data/contacto';
+import { obtenerRepos } from '../data/repos';
+
+const repos = await obtenerRepos('fvidau', import.meta.env.GITHUB_TOKEN ?? process.env.GITHUB_TOKEN);
+const fecha = new Intl.DateTimeFormat('es-AR', { month: 'short', year: 'numeric' });
 ---
 
 <section id="proyectos" class="pt-34 pb-18 sm:pt-40 sm:pb-24">
@@ -7,20 +11,30 @@ import { contacto } from '../data/contacto';
     <span class="label">// proyectos</span>
     <h1 class="mb-2 text-[28px] font-bold tracking-[-.01em]">Proyectos</h1>
     <p class="mb-12 max-w-[640px] text-muted">Agentes de IA aplicados a la calidad de software.</p>
-    <div class="overflow-hidden rounded-xl border border-line bg-surface">
-      <div class="flex gap-1.5 border-b border-line px-4 py-3" aria-hidden="true">
-        <i class="size-2.5 rounded-full bg-line"></i><i class="size-2.5 rounded-full bg-line"></i><i
-          class="size-2.5 rounded-full bg-line"></i>
-      </div>
-      <pre
-        class="p-6 font-mono text-sm leading-[1.9] whitespace-pre-wrap text-muted"><b class="font-normal text-matrix">$</b> ls ./proyectos
-<b class="font-normal text-matrix">&gt;</b> compilando agentes de IA para QA...
-<b class="font-normal text-matrix">&gt;</b> próximamente <span class="cursor"></span></pre>
-      <div class="px-6 pb-6">
-        <a href={contacto.github} target="_blank" rel="noopener noreferrer" class="btn btn-ghost inline-block"
-          >Ver mi GitHub →</a
-        >
-      </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        repos.map(({ nombre, descripcion, lenguaje, actualizado, url }) => (
+          <article class="flex flex-col rounded-xl border border-line bg-surface px-6 py-[22px] transition-colors hover:border-line-hover">
+            <h2 class="font-mono text-base font-semibold break-all">
+              <a href={url} target="_blank" rel="noopener noreferrer" class="text-ink hover:text-matrix">
+                {nombre}
+              </a>
+            </h2>
+            {descripcion && <p class="mt-2 text-sm text-muted">{descripcion}</p>}
+            <p class="mt-auto flex flex-wrap items-center gap-3 pt-4 text-[13px] text-muted">
+              {lenguaje && (
+                <span class="rounded-full border border-matrix/35 px-2.5 py-[3px] font-mono text-[11px] text-matrix-dim">
+                  {lenguaje}
+                </span>
+              )}
+              <span>actualizado {fecha.format(new Date(actualizado))}</span>
+            </p>
+          </article>
+        ))
+      }
     </div>
+    <a href={contacto.github} target="_blank" rel="noopener noreferrer" class="btn btn-ghost mt-8 inline-block"
+      >Ver mi GitHub →</a
+    >
   </div>
 </section>

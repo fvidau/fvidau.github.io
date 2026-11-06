@@ -148,6 +148,22 @@ test('proyectos lleva al GitHub', async ({ page }) => {
   await expect(page.locator(`main a[href="${GITHUB}"]`)).toHaveCount(1);
 });
 
+test('proyectos muestra una tarjeta por repo público, con link al repo', async ({ page }) => {
+  await page.goto('/proyectos/');
+  // Los repos vienen de GitHub en vivo: se verifica la estructura, nunca nombres puntuales salvo el del portfolio.
+  const tarjetas = page.locator('main article');
+  expect(await tarjetas.count()).toBeGreaterThan(0);
+  for (const tarjeta of await tarjetas.all()) {
+    const link = tarjeta.getByRole('link').first();
+    await expect(link).toHaveAttribute('href', /^https:\/\/github\.com\/fvidau\/[^/]+$/);
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', /noopener/);
+  }
+  await expect(page.locator('main article a[href="https://github.com/fvidau/fvidau.github.io"]')).toHaveCount(1);
+  const texto = await page.locator('main').innerText();
+  expect(texto).not.toMatch(/\bnull\b|\bundefined\b|próximamente/);
+});
+
 test('los links de contacto apuntan a los datos reales', async ({ page }) => {
   await page.goto('/contacto/');
   const contacto = page.locator('main');
